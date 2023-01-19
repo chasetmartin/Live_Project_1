@@ -4,7 +4,7 @@ Repository for code snippets and a description of work I accomplished during my 
 ## Table of contents:
 ### Front End:
 * I did not include any of the CSS code snippets in this file, but the screenshots throughout display the general styling
-* [Javascript Table Sorting](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#javascript-function-to-sort-tables-alphabetically-when-displayed-in-the-application)
+* [Javascript Table Sorting](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#javascript-function-to-sort-tables-alphabetically-when-displayed-in-the-application)
 ### Back End:
 * [Creating Django Model](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#creating-a-django-model-and-model-manager)
 * [Create, Read, Edit, Delete View Functions](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#writing-view-functions-to-create-read-edit-and-delete-instances-of-my-hockey-player-model)
