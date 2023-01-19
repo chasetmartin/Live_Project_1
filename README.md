@@ -42,6 +42,8 @@ def hockeytracker_read(request):
     content = {'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_read.html', content)
 ```
+<img width="1421" alt="Screen Shot 2023-01-19 at 9 50 14 AM" src="https://user-images.githubusercontent.com/36861079/213521751-cee2d414-ddf3-4a43-8852-f629bc9010f8.png">
+
 ### Story #4: Details Page for selected player
 ```
 def hockeytracker_details(request, pk):
