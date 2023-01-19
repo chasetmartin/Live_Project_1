@@ -76,3 +76,47 @@ def hockeytracker_delete(request, pk):
     content = {'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_delete.html', content)
 ```
+<img width="1425" alt="Screen Shot 2023-01-19 at 9 54 56 AM" src="https://user-images.githubusercontent.com/36861079/213522759-152f9f01-7efb-4de4-8340-ef8bdb38391b.png">
+
+## Accessing the NHL.com API:
+### The view function to request a list of all NHL teams:
+```
+def hockeytracker_nhl(request):
+    url = "https://statsapi.web.nhl.com/api/v1/teams"
+    response = requests.request("GET", url)
+
+    api_response = response.json()
+    teamslist = api_response["teams"]
+
+    content = {
+        "teamslist": teamslist
+    }
+    return render(request, 'HockeyTracker/hockeytracker_nhl.html', content)
+```
+### The Django template code to render the results in the form of an HTML table:
+```
+{% extends "hockeytracker_base.html" %}
+
+{% block content %}
+<h1>NHL.com API</h1>
+<h2>Current NHL Teams</h2>
+<hr>
+<h2>Click on any row to view stats and recent game content from your favorite NHL team!</h2>
+<table id="sorttable">
+    <tr>
+        <th>Team</th>
+        <th>Conference</th>
+        <th>Division</th>
+    </tr>
+    {% for i in teamslist%}
+    <tr onclick="location.href='{% url 'hockeytracker_roster' i.id i.name %}';">
+        <td>{{ i.name }}</td>
+        <td>{{ i.conference.name }}</td>
+        <td>{{ i.division.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+```
+<img width="1424" alt="Screen Shot 2023-01-19 at 9 57 51 AM" src="https://user-images.githubusercontent.com/36861079/213523337-b5ee3f18-4fa5-41dd-9daf-1d842dda7fd8.png">
+
