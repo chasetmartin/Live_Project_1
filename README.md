@@ -36,6 +36,7 @@ def hockeytracker_create(request):
     return render(request, 'HockeyTracker/hockeytracker_create.html', content)
 ```
 ### Story #3: Display all items from database
+```
 def hockeytracker_read(request):
     hockeyplayer = HockeyPlayer.HockeyPlayers.all()
     content = {'hockeyplayer': hockeyplayer}
