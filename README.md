@@ -6,14 +6,14 @@ Repository for code snippets and a description of work I accomplished during my 
 * I did not include any of the CSS code snippets in this file, but the screenshots throughout display the general styling
 * [Javascript Table Sorting](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#javascript-function-to-sort-tables-alphabetically-when-displayed-in-the-application)
 ### Back End:
-* [Creating Django Model](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#creating-a-django-model-and-model-manager)
-* [Create, Read, Edit, Delete View Functions](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#writing-view-functions-to-create-read-edit-and-delete-instances-of-my-hockey-player-model)
-* [Accessing the NHL.com API](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#accessing-the-nhlcom-api)
-     * [Requesting All NHL Teams](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-to-request-a-list-of-all-nhl-teams-from-the-api)
-     * [Requesting Roster & Most Recent Game Info](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-roster-most-recent-game-date-score-and-primary-key-for-the-team-selected-by-the-user)
-     * [Requesting Player Stats and Saving to Model](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-selected-players-stats-with-the-code-to-save-the-stats-to-the-hocky-player-database-model)
-     * [Requesting URL for Video Highlights](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-url-associated-with-a-teams-most-recent-game-video-highlights)
-<br>
+* [Creating Django Model](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#creating-a-django-model-and-model-manager)
+* [Create, Read, Edit, Delete View Functions](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#writing-view-functions-to-create-read-edit-and-delete-instances-of-my-hockey-player-model)
+* [Accessing the NHL.com API](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#accessing-the-nhlcom-api)
+     * [Requesting All NHL Teams](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#the-view-function-to-request-a-list-of-all-nhl-teams-from-the-api)
+     * [Requesting Roster & Most Recent Game Info](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#the-view-function-api-request-for-the-roster-most-recent-game-date-score-and-primary-key-for-the-team-selected-by-the-user)
+     * [Requesting Player Stats and Saving to Model](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#the-view-function-api-request-for-the-selected-players-stats-with-the-code-to-save-the-stats-to-the-hocky-player-database-model)
+     * [Requesting URL for Video Highlights](https://github.com/chasetmartin/Live_Project_1/blob/main/README.md#the-view-function-api-request-for-the-url-associated-with-a-teams-most-recent-game-video-highlights)
+
 <br>
 
 ## Creating the basic templates and home page view:
