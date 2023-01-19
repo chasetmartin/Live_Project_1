@@ -2,7 +2,7 @@
 Repository for code snippets and a description of work I accomplished during my 1st Tech Academy Live Project
 
 ## Creating a Django Model and Model Manager:
-'''
+```
 class HockeyPlayer(models.Model):
     name = models.CharField(max_length=50, default="", blank=True, null=False)
     timeonice = models.CharField(max_length=50, default="", blank=True, null=False)
@@ -18,4 +18,4 @@ class HockeyPlayer(models.Model):
 
     def __str__(self):
         return self.name
-'''
+```
