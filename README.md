@@ -1,5 +1,5 @@
 # Live Project - Django App - NHL Hockey Statistic Tracker
-Repository for code snippets and a description of work I accomplished during my 1st Tech Academy Live Project. I worked on bulding a single Django application within a larger group project, and the focus of my application was creating a place for user's to store data about local hockey player, or view stats and highlights for their favorite NHL teams and players using the NHL.com API.
+Repository for code snippets and a description of work I accomplished during my 1st Tech Academy Live Project. I worked on bulding a single Django application within a larger group project, and the focus of my application was creating a place for user's to store data about local hockey player, or view stats and highlights for their favorite NHL teams and players using the NHL.com API. The app was built to display CRUD fundamentals and the ability to work with a live API.
 
 ## Table of contents:
 ### Front End:
