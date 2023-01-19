@@ -1,8 +1,25 @@
 # Live Project - Django App - NHL Hockey Statistic Tracker
 Repository for code snippets and a description of work I accomplished during my 1st Tech Academy Live Project. I worked on bulding a single Django application within a larger group project, and the focus of my application was creating a place for user's to store data about local hockey player, or view stats and highlights for their favorite NHL teams and players using the NHL.com API.
 
+## Table of contents:
+### Front End:
+* I did not include any of the CSS code snippets in this file, but the screenshots throughout display the general styling
+* [Javascript Table Sorting](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#javascript-function-to-sort-tables-alphabetically-when-displayed-in-the-application)
+### Back End:
+* [Creating Django Model](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#creating-a-django-model-and-model-manager)
+* [Create, Read, Edit, Delete View Functions](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#writing-view-functions-to-create-read-edit-and-delete-instances-of-my-hockey-player-model)
+* [Accessing the NHL.com API](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#accessing-the-nhlcom-api)
+     * [Requesting All NHL Teams](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-to-request-a-list-of-all-nhl-teams-from-the-api)
+     * [Requesting Roster & Most Recent Game Info](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-roster-most-recent-game-date-score-and-primary-key-for-the-team-selected-by-the-user)
+     * [Requesting Player Stats and Saving to Model](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-selected-players-stats-with-the-code-to-save-the-stats-to-the-hocky-player-database-model)
+     * [Requesting URL for Video Highlights](https://github.com/chasetmartin/Live_Project_1/edit/main/README.md#the-view-function-api-request-for-the-url-associated-with-a-teams-most-recent-game-video-highlights)
+<br>
+<br>
+
 ## Creating the basic templates and home page view:
 <img width="1423" alt="Screen Shot 2023-01-19 at 9 52 45 AM" src="https://user-images.githubusercontent.com/36861079/213522379-1c75ebb8-2496-41bf-a271-c0d0b28e6cf4.png">
+
+<br>
 
 ## Creating a Django Model and Model Manager:
 This model was designed to work with both user-created Hockey Player objects, or NHL players retreived from the NHL.com API and saved by the user. So the fields had to make sense for either type of entry.
@@ -24,8 +41,10 @@ class HockeyPlayer(models.Model):
         return self.name
 ```
 
+<br>
+
 ## Writing view functions to create, read, edit, and delete instances of my Hockey Player Model:
-### Story #2: Create model and render create entry page
+### Create model and render create entry page
 ```
 def hockeytracker_create(request):
     form = HockeyPlayerForm(data=request.POST or None)
@@ -38,7 +57,7 @@ def hockeytracker_create(request):
     content = {'form': form}
     return render(request, 'HockeyTracker/hockeytracker_create.html', content)
 ```
-### Story #3: Display all items from database
+### Display all items from database
 ```
 def hockeytracker_read(request):
     hockeyplayer = HockeyPlayer.HockeyPlayers.all()
@@ -47,14 +66,14 @@ def hockeytracker_read(request):
 ```
 <img width="1421" alt="Screen Shot 2023-01-19 at 9 50 14 AM" src="https://user-images.githubusercontent.com/36861079/213521751-cee2d414-ddf3-4a43-8852-f629bc9010f8.png">
 
-### Story #4: Details Page for selected player
+### Details Page for selected player
 ```
 def hockeytracker_details(request, pk):
     hockeyplayer = get_object_or_404(HockeyPlayer, pk=pk)
     content = {'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_details.html', content)
 ```
-### Story #5: Edit and Delete functions
+### Edit and Delete functions
 ```
 def hockeytracker_edit(request, pk):
     hockeyplayer = get_object_or_404(HockeyPlayer, pk=pk)
@@ -78,7 +97,12 @@ def hockeytracker_delete(request, pk):
 ```
 <img width="1425" alt="Screen Shot 2023-01-19 at 9 54 56 AM" src="https://user-images.githubusercontent.com/36861079/213522759-152f9f01-7efb-4de4-8340-ef8bdb38391b.png">
 
+<br>
+
 # Accessing the NHL.com API:
+
+<br>
+
 ## The view function to request a list of all NHL teams from the API:
 ```
 def hockeytracker_nhl(request):
@@ -119,6 +143,37 @@ def hockeytracker_nhl(request):
 {% endblock %}
 ```
 <img width="1424" alt="Screen Shot 2023-01-19 at 9 57 51 AM" src="https://user-images.githubusercontent.com/36861079/213523337-b5ee3f18-4fa5-41dd-9daf-1d842dda7fd8.png">
+
+<br>
+
+## Javascript function to sort tables alphabetically when displayed in the application:
+```
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("sorttable");
+  switching = true;
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
+}
+sortTable();
+```
+
+<br>
 
 ## The view function API request for the roster, most recent game date, score, and primary key for the team selected by the user:
 ```
@@ -206,3 +261,45 @@ ef hockeytracker_roster(request, x, teamname):
 
 <img width="1422" alt="Screen Shot 2023-01-19 at 10 03 21 AM" src="https://user-images.githubusercontent.com/36861079/213525816-2d1a3b29-862f-48c2-8c3f-3e03ea463d5d.png">
 
+<br>
+
+## The view function API request for the selected player's stats, with the code to save the stats to the Hocky Player database model:
+```
+def hockeytracker_saveplayerstats(request, x, playername):
+    url = "https://statsapi.web.nhl.com/api/v1/people/" + str(x) + "/stats?stats=statsSingleSeason"
+    response = requests.request("GET", url)
+
+    api_response = response.json()
+    savestatdict = api_response["stats"][0]["splits"][0]['stat']
+    hockeyplayer = HockeyPlayer(
+        name=playername,
+        timeonice=savestatdict['timeOnIce'],
+        points=savestatdict['points'],
+        goals=savestatdict['goals'],
+        assists=savestatdict['assists'],
+        hits=savestatdict['hits'],
+        faceoffpct=savestatdict['faceOffPct'],
+        plusminus=savestatdict['plusMinus']
+    )
+    hockeyplayer.save()
+    return redirect('../../../read')
+```
+
+<br>
+
+## The view function API request for the URL associated with a team's most recent game video highlights:
+```
+def hockeytracker_highlights(request, previousgamepk):
+    url = "https://statsapi.web.nhl.com/api/v1/game/" + str(previousgamepk) + "/content"
+    response = requests.request("GET", url)
+
+    api_response = response.json()
+    videourl = api_response["media"]["epg"][2]["items"][0]["playbacks"][3]["url"]
+
+    content = {
+        "videourl": videourl
+    }
+
+    return render(request, 'HockeyTracker/hockeytracker_highlights.html', content)
+```
+<img width="1419" alt="Screen Shot 2023-01-19 at 10 16 54 AM" src="https://user-images.githubusercontent.com/36861079/213527250-82b6f716-d145-462c-99b8-237c3406499b.png">
