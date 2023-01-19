@@ -1,6 +1,9 @@
 # Live Project - Django App - NHL Hockey Statistic Tracker
 Repository for code snippets and a description of work I accomplished during my 1st Tech Academy Live Project. I worked on bulding a single Django application within a larger group project, and the focus of my application was creating a place for user's to store data about local hockey player, or view stats and highlights for their favorite NHL teams and players using the NHL.com API.
 
+## Creating the basic templates and home page view:
+<img width="1423" alt="Screen Shot 2023-01-19 at 9 52 45 AM" src="https://user-images.githubusercontent.com/36861079/213522379-1c75ebb8-2496-41bf-a271-c0d0b28e6cf4.png">
+
 ## Creating a Django Model and Model Manager:
 This model was designed to work with both user-created Hockey Player objects, or NHL players retreived from the NHL.com API and saved by the user. So the fields had to make sense for either type of entry.
 ```
