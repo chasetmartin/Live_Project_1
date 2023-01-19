@@ -22,9 +22,8 @@ class HockeyPlayer(models.Model):
 ```
 
 ## Writing view functions to create, read, edit, and delete instances of my Hockey Player Model:
+### Story #2: Create model and render create entry page
 ```
-# Story #2: Create model and render create entry page
-
 def hockeytracker_create(request):
     form = HockeyPlayerForm(data=request.POST or None)
     if request.method == 'POST':
@@ -35,23 +34,22 @@ def hockeytracker_create(request):
             print(form.errors)
     content = {'form': form}
     return render(request, 'HockeyTracker/hockeytracker_create.html', content)
-
-
-# Story #3: Display all items from database
+```
+### Story #3: Display all items from database
 def hockeytracker_read(request):
     hockeyplayer = HockeyPlayer.HockeyPlayers.all()
     content = {'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_read.html', content)
-
-
-# Story #4: Details Page for selected player
+```
+### Story #4: Details Page for selected player
+```
 def hockeytracker_details(request, pk):
     hockeyplayer = get_object_or_404(HockeyPlayer, pk=pk)
     content = {'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_details.html', content)
-
-
-# Story #5: Edit and Delete functions
+```
+### Story #5: Edit and Delete functions
+```
 def hockeytracker_edit(request, pk):
     hockeyplayer = get_object_or_404(HockeyPlayer, pk=pk)
     form = HockeyPlayerForm(data=request.POST or None, instance=hockeyplayer)
@@ -63,7 +61,6 @@ def hockeytracker_edit(request, pk):
             print(form.errors)
     content = {'form': form, 'hockeyplayer': hockeyplayer}
     return render(request, 'HockeyTracker/hockeytracker_edit.html', content)
-
 
 def hockeytracker_delete(request, pk):
     hockeyplayer = get_object_or_404(HockeyPlayer, pk=pk)
