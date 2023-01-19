@@ -78,8 +78,8 @@ def hockeytracker_delete(request, pk):
 ```
 <img width="1425" alt="Screen Shot 2023-01-19 at 9 54 56 AM" src="https://user-images.githubusercontent.com/36861079/213522759-152f9f01-7efb-4de4-8340-ef8bdb38391b.png">
 
-## Accessing the NHL.com API:
-### The view function to request a list of all NHL teams:
+# Accessing the NHL.com API:
+## The view function to request a list of all NHL teams from the API:
 ```
 def hockeytracker_nhl(request):
     url = "https://statsapi.web.nhl.com/api/v1/teams"
@@ -93,7 +93,7 @@ def hockeytracker_nhl(request):
     }
     return render(request, 'HockeyTracker/hockeytracker_nhl.html', content)
 ```
-### The Django template code to render the results in the form of an HTML table:
+## The Django template code to render the teams results in the form of an HTML table:
 ```
 {% extends "hockeytracker_base.html" %}
 
@@ -119,4 +119,90 @@ def hockeytracker_nhl(request):
 {% endblock %}
 ```
 <img width="1424" alt="Screen Shot 2023-01-19 at 9 57 51 AM" src="https://user-images.githubusercontent.com/36861079/213523337-b5ee3f18-4fa5-41dd-9daf-1d842dda7fd8.png">
+
+## The view function API request for the roster, most recent game date, score, and primary key for the team selected by the user:
+```
+ef hockeytracker_roster(request, x, teamname):
+    url = "https://statsapi.web.nhl.com/api/v1/teams/" + str(x) + "/roster"
+    response = requests.request("GET", url)
+
+    api_response = response.json()
+    roster = api_response["roster"]
+
+    # Add in an additional API call to find previous game for the team and return the boxscore API results:
+
+    url2 = "https://statsapi.web.nhl.com/api/v1/teams/" + str(x) + "?expand=team.schedule.previous"
+    response2 = requests.request("GET", url2)
+
+    api_response2 = response2.json()
+    previousgamepk = api_response2["teams"][0]["previousGameSchedule"]["dates"][0]["games"][0]["gamePk"]
+    previousgamedate = api_response2["teams"][0]["previousGameSchedule"]["dates"][0]["date"]
+
+    url3 = "https://statsapi.web.nhl.com/api/v1/game/" + str(previousgamepk) + "/boxscore"
+    response3 = requests.request("GET", url3)
+    api_response3 = response3.json()
+    previousgamebox = api_response3["teams"]
+
+    content = {
+        "roster": roster,
+        "teamname": teamname,
+        "previousgamebox": previousgamebox,
+        "previousgamepk": previousgamepk,
+        "previousgamedate": previousgamedate
+    }
+    return render(request, 'HockeyTracker/hockeytracker_roster.html', content)
+```
+## The Django template code to render the selected team's most recent game score, link to video highlights, and roster:
+```
+{% extends "hockeytracker_base.html" %}
+
+{% block content %}
+<h1>{{ teamname }}</h1>
+<h2>Most Recent Game: {{ previousgamedate }}</h2>
+<h3>{{ previousgamebox.away.team.name }} vs {{ previousgamebox.home.team.name }}</h3>
+<table class="boxtable">
+    <tr class="boxrow">
+        <th class="boxheader"></th>
+        <th class="boxheader">{{ previousgamebox.away.team.name }}</th>
+        <th class="boxheader">{{ previousgamebox.home.team.name }}</th>
+    </tr>
+    <tr class="boxrow">
+        <td class="boxlabel">Score</td>
+        <td class="boxgoals"><div class="divgoals">{{ previousgamebox.away.teamStats.teamSkaterStats.goals }}</div></td>
+        <td class="boxgoals"><div class="divgoals">{{ previousgamebox.home.teamStats.teamSkaterStats.goals }}</div></td>
+    </tr>
+    <tr class="boxrow">
+        <td class="boxlabel">Shots</td>
+        <td class="boxshothit">{{ previousgamebox.away.teamStats.teamSkaterStats.shots }}</td>
+        <td class="boxshothit">{{ previousgamebox.home.teamStats.teamSkaterStats.shots }}</td>
+    </tr>
+    <tr class="boxrow">
+        <td class="boxlabel">Hits</td>
+        <td class="boxshothit">{{ previousgamebox.away.teamStats.teamSkaterStats.hits }}</td>
+        <td class="boxshothit">{{ previousgamebox.home.teamStats.teamSkaterStats.hits }}</td>
+    </tr>
+</table>
+<button onclick="location.href='{% url 'hockeytracker_highlights' previousgamepk %}';">Click HERE for Video Highlights!</button>
+<hr>
+<h2>Current Roster</h2>
+<h3>Click on any row to view the player's stats and reveal the SAVE option!</h3>
+<table id="sorttable">
+    <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Jersey Number</th>
+    </tr>
+    {% for i in roster%}
+    <tr onclick="location.href='{% url 'hockeytracker_playerstats' i.person.id i.person.fullName %}';">
+        <td>{{ i.person.fullName }}</td>
+        <td>{{ i.position.name }}</td>
+        <td>{{ i.jerseyNumber }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+```
+<img width="1424" alt="Screen Shot 2023-01-19 at 10 02 54 AM" src="https://user-images.githubusercontent.com/36861079/213525757-c89fac59-d673-4f7d-8b9e-1ce511382c5a.png">
+
+<img width="1422" alt="Screen Shot 2023-01-19 at 10 03 21 AM" src="https://user-images.githubusercontent.com/36861079/213525816-2d1a3b29-862f-48c2-8c3f-3e03ea463d5d.png">
 
